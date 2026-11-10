@@ -1,0 +1,45 @@
+/* Base style for all method tags */
+[data-nav-tag] {
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 2px 8px;
+}
+
+/* POST */
+[data-nav-tag="POST"] {
+  background-color: #0D9373 !important;
+  color: #ffffff !important;
+}
+
+/* GET */
+[data-nav-tag="GET"] {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* PUT */
+[data-nav-tag="PUT"] {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+}
+
+/* DELETE */
+[data-nav-tag="DELETE"] {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* PATCH */
+[data-nav-tag="PATCH"] {
+  background-color: #7c3aed !important;
+  color: #ffffff !important;
+}
+
+.markdown h1 {
+  color: #CC5500 !important;
+}
+
+.markdown h2 {
+  color: #2a6fa1 !important;
+}
+

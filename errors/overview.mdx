@@ -1,0 +1,40 @@
+---
+title: 'Overview'
+---
+
+On successful execution (HTTP Status Code: 200), the API returns the expected response with the relevant output data.
+In case of an error, the response includes a JSON object containing the error type, the corresponding HTTP status code, and a detailed explanation.
+
+
+| Field | Type | Description |
+|------|------|------------|
+| code | integer | Error code type |
+| description | string | Global description about error type |
+| details | string array | List of all problems described in detail. |
+
+
+## Example Response
+
+```json
+{
+  "code": 1000,
+  "description": "Not found.",
+  "details": []
+}
+```
+
+It is recommended to verify the execution status codes and, based on success or failure, appropriately handle the output by either parsing it as an Error object, or extracting the desired information from the endpoint's specific JSON response.
+
+✓ In case of **success**: Extract the required information from the JSON response.<br/>
+🞬 In case of **failure**: Parse the response as an error object and take appropriate action.
+
+---
+
+## General Status Codes
+
+| Code | Description | HTTP Status Code |
+|------|------|------------|
+| 1000 | **Not Found** - The requested resource or information was not found.| 404 |
+| 2000 | **Authorization Failed** - Authorization errors (ex. incorrect API key, missing creds) | 403 |
+| 3000 | **Invalid Model** - Validation errors related to request fields or input data. | 400 |
+| 4000 | **Processing Failed** - An unexpected server error occurred while processing request. | 500 |

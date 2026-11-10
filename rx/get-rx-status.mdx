@@ -1,0 +1,65 @@
+---
+title: "Get Rx Status"
+tag: "GET"
+---
+
+<Info>All requests require a valid JWT token</Info>
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  GET `<path to API root>/api/Rx/GetRxStatus`
+</Card>
+
+The <Badge color="yellow">GetRxStatus</Badge> endpoint is intended to return the current status information of specific prescriptions. The available list of statuses is included below.
+
+---
+
+## Query Parameters
+
+| Field | Type | Requirement | Description |
+|------|----------|------|------------|
+| rxNumber | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | The Rx identification number which was returned during Rx creation process. |
+
+
+## Response
+
+| Field | Type | Description |
+|------|------|------------|
+| status | string | Rx status information |
+
+
+### Status Descriptions - Rx **_Has_** Been Transmitted to Pharmacy ✅
+
+| Rx Status | Description | 
+|--------------- | ----------------------------------------------------- |
+| Entered         | Prescription has been received by the pharmacy                                                                        |
+| Verified        | Prescription has been approved by the pharmacist during initial review                                                |
+| Adjudicated     | Prescription has been dispensed in the pharmacy’s prescription processing system and is awaiting physical fulfillment |
+| Print/Processed | Prescription labels have been printed; order is being physically filled                                               |
+| Approved        | Prescription has been filled and is awaiting final pharmacist review                                                  |
+| Shipped         | Prescription has been shipped                                                                                         |
+| Returned        | Order has been returned to the pharmacy or is in the process of being returned                                        |
+
+
+### Status Descriptions - Rx **_Has Not_** Been Transmitted to Pharmacy ❌
+
+<Info>These types of prescription statuses are specific to Rx Drafts that have not yet been fully transmitted. To view and manage your Rx Drafts, login to the WPN Scripts web-based portal and look for them under the API Action Items tab</Info>
+
+| Rx Status              | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| Ready To Sign E-Scribe | Prescription awaiting provider signature/review |
+| Printed E-Scribe       | Prescription has been printed by the provider   |
+| Sign Pending E-Scribe  |                                                 |
+| Sign Failed E-Scribe   |                                                 |
+| Sign Denied E-Scribe   |                                                 |
+| Failed E-Scribe        |                                                 |
+| Financial Hold         |                                                 |
+
+<RequestExample>
+
+```bash
+GET /api/Rx/GetRxStatus?rxNumber=rx_1234
+```
+</RequestExample><ResponseExample>
+```json
+"Print/Processed"
+```
+</ResponseExample>

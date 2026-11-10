@@ -1,0 +1,107 @@
+---
+title: "Get Patient"
+tag: "GET"
+---
+
+<Info>
+  All requests require a valid JWT token
+</Info>
+
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  GET `<path to API root>/api/Patient/Get`
+</Card>
+
+The <Badge color="yellow">Get Patient</Badge> endpoint is designed for retrieving patient information from the clinic's database. It accepts input parameters such as 'FirstName', 'LastName', 'Initials', 'DateOfBirth', ‘PatID’ or ‘ExternalID’ to facilitate patient searches.
+
+To retrieve a list of patients, at least one those parameters should be specified. The endpoint returns search results in paginated sets, with each page containing a maximum of 500 records. However, clients have the option to customize the number of records per page by specifying the desired value in the request object.
+
+---
+
+## Query Parameters
+
+At least **one** patient identifier must be provided.
+
+| Name | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| firstName | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Patient first name |
+| lastName | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Patient last name |
+| initials | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Patient initials |
+| dateOfBirth | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Format: `YYYY-MM-DD` |
+| patID | Integer | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | See [patID](/definitions#patid) |
+| externalID | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | See [externalID](/definitions#externalid) |
+| pageNumber | integer | <Badge color="surface" size="sm" shape="rounded">Optional</Badge> | Page index |
+| pageSize | integer | <Badge color="surface" size="sm" shape="rounded">Optional</Badge> | Max 500 |
+
+## Response (application/json)
+
+### Pagination
+
+| Field | Type | Description |
+| --- | --- | --- |
+| currentPage | integer | Current page index |
+| hasNextPage | boolean | Indicates if additional pages exist |
+| recordCount | integer | Total number of records |
+
+### data (array of objects)
+
+| Field | Type | Description |
+| --- | --- | --- |
+| patID | integer | Unique patient identifier |
+| firstName | string | Patient first name |
+| lastName | string | Patient last name |
+| middleName | string | Patient middle name |
+| gender | string | Patient gender |
+| dateOfBirth | string | Date of birth (Format: `YYYY-MM-DD`)<br /> Format: `YYYY-MM-DD` |
+| address1 | string | Address line 1 |
+| address2 | string | Address line 2 |
+| address3 | string | Address line 3 |
+| city | string | City |
+| state | string | Two-letter state code |
+| zip | string | ZIP code |
+| homePhone | string | Home phone number |
+| mobilePhone | string | Mobile phone number |
+| email<br /><br />emailRecordOnly | string<br /><br />string | Email address for **tracking notification** purposes<br /><br />Email address for **record-keeping purposes** only. Use if pharmacy should **not** send tracking information directly to the patient<br /><br /> |
+| driverLicenseNbr | string | Driver’s license number |
+| driverLicenseState | string | Driver’s license issuing state (Two-letter state code) |
+| externalID | string | Patient's external ID information from client's environment) |
+
+<RequestExample>
+
+```text
+bash
+GET /api/Patient/Get?firstName=John&lastName=Smith
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json
+{
+  "currentPage": 1,
+  "hasNextPage": false,
+  "recordCount": 1,
+  "data": [
+    {
+      "patID": 123456,
+      "firstName": "John",
+      "lastName": "Smith",
+      "middleName": "",
+      "gender": "M",
+      "dateOfBirth": "1981-08-03",
+      "address1": "123 Main St",
+      "city": "Houston",
+      "state": "TX",
+      "zip": "77001",
+      "homePhone": "5551234567",
+      "mobilePhone": "",
+      "email": "john@example.com",
+      "driverLicenseNbr": "123456789",
+      "driverLicenseState": "TX",
+      "externalID": "ABC123"
+    }
+  ]
+}
+```
+
+</ResponseExample>

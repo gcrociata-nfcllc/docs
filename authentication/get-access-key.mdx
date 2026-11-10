@@ -1,0 +1,44 @@
+---
+title: 'Get Access Key'
+tag: 'GET'
+---
+
+
+<Info>All requests require a valid JWT token</Info>
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  GET `<path to API root>/api/AuthenticateUserRequire/Get`
+</Card>
+
+The <Badge color="yellow">Get Access Key to Authenticate User</Badge> endpoint is used to obtain a one-time access key for the specified WPNScripts account. This key will be used for auto-login in the WPNScripts application for the ‘userName’ account. The key will expire after 30 seconds.
+
+---
+
+## Query Parameters
+
+| Field | Type | Requirement | Description |
+|-------|---------|------| ----- |
+| userName | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | User account name from WPNScripts application. |
+
+
+## Response
+
+```json
+"key"
+```
+---
+
+<RequestExample>
+
+```json
+{https://api/AuthenticateUserRequire/Get?userName=JSmith
+}
+```
+</RequestExample>
+
+<ResponseExample>
+
+```json 
+7a67a66bca4-2d96-46a8-b82c-4b0a5e9126f3
+```
+
+</ResponseExample>

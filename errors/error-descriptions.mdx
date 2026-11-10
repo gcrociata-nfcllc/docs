@@ -1,0 +1,64 @@
+---
+title: "Error Descriptions"
+---
+
+## `Code 1000` &nbsp; <Badge color="red" Badge size="lg">Not Found</Badge>
+  The requested resource or information was not found
+
+
+| HTTP Status Code | Detail/Description | Resolution |
+|------------------|--------------------|------------|
+| 404 |  |  |
+
+
+## `Code 2000` &nbsp; <Badge color="red" Badge size="lg">Authorization Failed</Badge>
+<br/>Authorization errors (ex. incorrect API key, missing credentials)
+
+
+| HTTP Status Code | Detail/Description | Resolution |
+|------------------|--------------------|------------|
+| 403 | Incorrect key information has been provided. Please contact Wells support for assistance. | Contact Wells support team to check your API Key is correct. |
+| 403 | Provided key is not active anymore. Please contact Wells support for assistance. | Contact Wells support team to check your API Key is correct. |
+| 403 | User with {UserName} username not found. | Contact Wells support team to check your username is correct. |
+| 403 | No access to RX data | Check you are requesting correct prescription information. |
+
+
+## `Code 3000` &nbsp; <Badge color="red" Badge size="lg">Invalid Model</Badge>
+  Validation errors related to request fields or input data.
+
+
+| HTTP Status Code | Detail/Description | Resolution |
+|------------------|--------------------|------------|
+| 400 | At least one search criteria should be provided. | Provide at least one search criteria when using search endpoints. |
+| 400 | Patient information not found. | Check provided values for patient searching. At least one of the following values should be provided: `firstName`, `lastName`, `Initials`, `dateofBirth`, `PatID` or `ExternalID` |
+| 400 | Patient's State information not found. | Ensure provided value for `State` field is correct |
+| 400 | Prescriber information not found. | Check provided NPI# is correct for the `prescriberNPINumber`. |
+| 400 | Prescriber's NPI# information is not valid. | Ensure correct value has been provided for `prescriberNPINumber` field. |
+| 400 | Prescriber information should be provided. | Ensure `prescriberNPINumber` is provided. |
+| 400 | Prescriber's NPI# information should be provided. | Ensure `prescriberNPINumber` is provided. |
+| 400 | The last office visit date cannot be a future date. | Ensure that the `lastOfficeVisitDate` is either on or before today's date. |
+| 400 | Incorrect Clinic Number received. | Ensure you are providing the correct `ClinicNumber` |
+| 400 | Patient information not found. | Check and ensure you are providing correct value for `patID` field. |
+| 400 | Please provide Patient Last Seen Date and visit method | Provide values for `method` and `lastOfficeVisitDate` fields. See [Add Rx](/prescriptions/add-rx) section |
+| 400 | Provided drug information is not correct. | Ensure provided `ndc` information is correct |
+| 400 | Provided Rx Control is incorrect. | Ensure your provided value for `control` field is available in the supported values list mentioned in the [Add Rx](/prescriptions/add-rx) section |
+| 400 | RX information not found by given RX Number | Ensure your provided `rxNumber` information is correct. |
+| 400 | Shipping Address information should be provided. | Ensure shipping address information is provided. |
+| 400 | Pharmacy does not have record that prescriber possesses state license for patient’s state. Last Seen Telehealth date not accepted. | Contact to Wells support team. The pharmacy may not have the provider’s license information for the state being shipped to |
+| 400 | Telehealth state information is not correct. | Ensure provided state code for `telehealthState` is correct. |
+| 400 | Telehealth state information can be provided only for Telehealth method. | Ensure for `method` field, the value provided is `“Telehealth”`.<br/><br/> `telehealthState` can be provided if that is setup for the clinic and `method` field has “Telehealth” value. |
+| 400 | Prescriber’s practicing location is not associated with an Idaho state license which is required to prescribe for patients located in Idaho. If prescriber possesses an Idaho state license, please provide the date patient was Last Seen via Telehealth (Last Seen In Office date not accepted). | Contact to Wells support team. |
+| 400 | Pharmacy is unable to fulfill orders for the provided shipping state | Ensure provided `shippingState` is correct, because Wells is not supporting shipments for provided state. |
+| 400 | RX is inactive and cannot be refilled | Contact to Wells support team. |
+| 400 | RX has 0 refills remaining and cannot be refilled | Contact to Wells support team. |
+
+
+## `Code 4000` &nbsp; <Badge color="red" Badge size="lg">Processing Failed </Badge>
+
+An unexpected server error occurred while processing request.
+
+| HTTP Status Code | Detail/Description | Resolution |
+|------------------|--------------------|------------|
+| 5000 | RX cannot be canceled | RX processing is in such state that cannot be cancelled. Contact to Wells support team. |
+| 5000 | An error occurred while canceling the RX. | Contact to Wells support team. |
+

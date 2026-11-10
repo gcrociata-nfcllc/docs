@@ -1,0 +1,39 @@
+---
+title: 'Release Rx'
+tag: 'GET'
+---
+
+<Info>All requests require a valid JWT token</Info>
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  GET `<path to API root>/api/Rx/ReleaseRx`
+</Card>
+
+The <Badge color="yellow">ReleaseRx</Badge> endpoint is intended for releasing prescriptions which are in “FinancialHold” status. The endpoint will change the status for prescription to “Draft”.
+
+---
+
+## Query Parameters
+
+| Field | Type | Required | Description |
+|------|----------|------|------------|
+| rxNumber | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | The Rx identification number which was returned during Rx creation process. |
+
+## Response
+
+| Field | Type | Description |
+|------|------|------------|
+| status | string | “Ok” if status change done successfully |
+
+
+<RequestExample>
+
+```bash
+GET /api/Rx/ReleaseRx?rxNumber=Rx_2789
+```
+</RequestExample>
+
+<ResponseExample>
+```json
+"OK"
+```
+</ResponseExample>

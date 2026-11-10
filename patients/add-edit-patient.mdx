@@ -1,0 +1,98 @@
+---
+title: "Add / Edit Patient"
+tag: "POST"
+---
+
+<Info>All requests require a valid JWT token</Info>
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  POST `<path to API root>/api/Patient/AddEditPatient`
+</Card>
+
+The <Badge color="yellow">AddEditPatient</Badge> endpoint is intended for adding new patient information or updating existing patient records. Patient details are provided via a JSON object included in the Request Body.
+
+---
+
+## Body (application/json)
+
+### Required Fields
+
+| Field | Type | Requirement | Description |
+|------|------|----------|------------|
+| patID | integer | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's unique identification number in pharmacy's database.<br/><br/>•`0` - When creating new patient.<br/>•`Applicable Patient's patID` - When updating existing patient record. |
+| firstName | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's first name. |
+| lastName | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's last name. |
+| dateOfBirth | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's date of birth <br/><br/>(Format: `YYYY-MM-DD`). |
+| address1 | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's address line 1. |
+| city | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's city. |
+| state | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's state <br/><br/>(Format: Two-letter state code, e.g., `FL`, `NY`). |
+| zip | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's zip code information.<br/><br/>**Supported Values:**<br/>•5-digit (Standard)<br/>•ZIP+4 (Extended) |
+| gender | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Patient's gender code.<br/><br/>**Supported Values:**<br/>• `M` - Male <br/>• `F` - Female <br/>• `T` - Transitioning |
+| prescriberNPINumber | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Prescriber's NPI number information with whom patient should be associated. |
+
+
+### Conditional Fields
+
+<Info>At least one phone parameter required (homePhone, cellPhone)</Info>
+
+| Field | Type | Requirement | Description |
+|------|------|----------|------------|
+| homePhone | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Patient's home phone information. |
+| cellPhone | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Patient's cell phone information. |
+
+
+### Optional Fields
+
+| Field | Type | Requirement | Description |
+|------|------|----------|------------|
+| middleName | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's middle name. |
+| address2 | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's address line 2. |
+| address3 | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's address line 3. |
+| ssNumber | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's Social Security Number. |
+| driverLicenseNbr | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's driver license number. |
+| driverLicenseState | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's driver license issuing state (Format: Two-letter state code, e.g., FL, NY). |
+| email | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's email address for receiving automatic tracking emails directly from shipping carrier. |
+| emailRecordOnly | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's email information for record-keeping purposes only (patient will NOT receive tracking emails directly from shipping carrier). |
+| externalID | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Patient's external ID information (from client’s environment). |
+| allergyInfo | object | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Allergy info information (details below). |
+
+
+#### allergyInfo (object)
+
+| Field | Type | Requirement | Description |
+|------|------|----------|------------|
+| allergy | string | <Badge color="surface" size="sm" shape="rounded">Optional </Badge>| Allergy name information. |
+| severity | string | <Badge color="surface" size="sm">Optional </Badge> | Severity information.<br /><br />**Supported Values:**<br />•`<Not Specified>`<br />•`Intolerance`<br />•`Mild`<br />•`Moderate`<br />•`Severe`<br />•`Anaphylaxis` |
+
+
+## Output
+
+| Field | Type | Description |
+|------|------|------------|
+| patID | Integer | Newly created or updated patient's unique identification number in pharmacy's database. |
+
+
+<RequestExample>
+
+```json
+{
+  "patID": 0,
+  "firstName": "John",
+  "lastName": "Doe",
+  "dateOfBirth": "2001-01-01",
+  "address1": "123 Main St",
+  "city": "Houston",
+  "state": "TX",
+  "zip": "77001",
+  "homePhone": "5551234567",
+  "gender": "M",
+  "prescriberNPINumber": "1112223333"
+}
+```
+</RequestExample>
+
+<ResponseExample>
+
+```json
+"22222222"
+```
+</ResponseExample>

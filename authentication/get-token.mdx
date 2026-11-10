@@ -1,0 +1,47 @@
+---
+title: 'Get Token'
+tag: 'GET'
+---
+
+<Info>All requests require a valid JWT token</Info>
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  GET `<path to API root>/api/Token/Get`
+</Card>
+
+---
+
+The <Badge color="yellow">Get Token</Badge> endpoint serves as the primary entry point to the API, facilitating the generation of JWT (JSON Web Token) authentication tokens for client applications. 
+
+Each client is provided with a unique `key` during setup, which is then sent to the <Badge color="yellow">Get Token</Badge> endpoint to generate the JWT token. This token must be included as a header key in subsequent API requests to authenticate and access protected endpoints.
+
+<Note> When including the JWT token in subsequent API requests for authentication, it should be sent in the Authorization header using the Bearer scheme.</Note>
+
+---
+
+## Query Parameters
+
+| Name | Type | Requirement | Description |
+|----|----|----|----|
+| key | string | <Badge color="red" size="sm" shape="rounded">Required</Badge> | Unique key provided by the pharmacy to each customer |
+
+
+## Response
+
+```json
+"token"
+```
+
+<RequestExample>
+
+```json
+
+{https://<path to API root>/api/Token/Get?key=f914f188-3f58-42c5-8179-2fd3bdab18432
+}
+```
+</RequestExample>
+<ResponseExample>
+
+```
+{eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDbGluaWNDbGFpbSI6IntcIklEXCI6NTIwNixcIk5hbWVcIjpcIkFOWSBMQUIgVEVTVCBOT1cgLSBIQVJLRVIgSEVJR0hUU1wiLFwiQXBpTG9nZ2luZ1wiOmZhbHNlfSIsIm5iZiI6MTcxMzYxNTEwNSwiZXhwIjoxNzEzNjE2OTA1LCJpYXQiOjE3MTM2MTUxMDV9.s28viYvTjsuM4SydjuxHciyj2LFXTWecvdcIYrI1Fug}
+```
+</ResponseExample>

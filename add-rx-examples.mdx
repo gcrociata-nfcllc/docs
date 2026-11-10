@@ -1,0 +1,124 @@
+---
+title: "Add Rx Examples"
+---
+
+The <Badge color="yellow">Add Rx</Badge> endpoint is intended for adding new prescriptions.
+
+Request payload requirements are context-dependent. Depending on the prescribing scenario, certain fields may be required, optional, or prohibited, and formatting requirements may differ based on:
+
+• Medication type & DEA classification\
+• Patient history with the pharmacy\
+• Prescriber credentials and license type\
+• State-specific prescribing requirements\\
+
+The examples below demonstrate some of the most common prescribing scenarios and highlight how request payloads can vary between them.
+
+---
+
+## New Order: Jane Doe
+
+### Capsules
+
+Request:
+
+![caps](/docs/images/caps.png)
+
+Response:
+
+![caps](/docs/images/capsrxid.png)
+
+---
+
+### Cream
+
+Request:
+
+![Creamrx](/docs/images/creamrx.png)
+
+Response:
+
+![Creamrxid](/docs/images/creamrxid.png)
+
+---
+
+### Foam
+
+Request:
+
+![Foam](/docs/images/foam.png)
+
+Response:
+
+![Foamrxid](/docs/images/foamrxid.png)
+
+---
+
+## New Order: John Smith
+
+### Injectable (Multi-Dose Vial)
+
+Request:
+
+![Injectable](/docs/images/injectable.png)
+
+Response:
+
+![Injectablerxid](/docs/images/injectablerxid.png)
+
+---
+
+### Lyophilized Injectable
+
+Request:
+
+![lyo](/docs/images/lyo.png)
+
+Response:
+
+![lyorxid](/docs/images/lyorxid.png)
+
+---
+
+### Injection Supplies (Syringes)
+
+<Note>
+  Sure Comfort Syringes are pre-packaged by the manufacturer in 10-count bags and must therefore be ordered in quantities of 10. All other syringes, needles, and injection kits may be ordered individually.
+</Note>
+
+Request:
+
+![injsup](/docs/images/injsup.png)
+
+Response:
+
+![injsuprxid](/docs/images/injsuprxid.png)
+
+---
+
+### Nasal Spray
+
+Request:
+
+![ns](/docs/images/ns.png)
+
+Response:
+
+![Injsuprxid](/docs/images/injsuprxid.png)
+
+---
+
+### Controlled Substance Injectable
+
+<Note>
+  A DEA number must be on file for any prescriber submitting controlled substance prescriptions. If needed, provide this information directly to the pharmacy; it does not need to be included in API requests. In the example below, assume the prescriber’s DEA number is already on file.
+</Note>
+
+Request:
+
+![Control](/control.png)
+
+Response:
+
+![Controlrxid 2](/docs/images/controlrxid-2.png)
+
+---

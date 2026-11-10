@@ -1,0 +1,56 @@
+---
+title: 'Cancel Rx'
+tag: 'GET'
+---
+
+<Info>All requests require a valid JWT token</Info>
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  GET `<path to API root>/api/Rx/CancelRx`
+</Card>
+
+The <Badge color="yellow">CancelRx</Badge> endpoint is intended to cancel already submitted prescriptions. A Prescription can only be cancelled using the 'CancelRx' endpoint if the rx is still in the initial stages of processing, which are denoted by the following rx statuses:
+
+* Entered - Prescription has been received by the pharmacy              
+* Verified - Prescription has been approved by the pharmacist during initial review
+
+<Badge color="yellow">CancelRx</Badge> <Badge color="red">**may not**</Badge> be used if prescription status is:
+
+* Adjudicated - Prescription has been dispensed in the pharmacy's prescription processing system and is awaiting physical fulfillment
+* Print/Processed - Prescription labels have been printed; order is being physically filled
+* Approved - Prescription has been filled and is awaiting final pharmacist review
+* Shipped - Prescription has been shipped
+* Returned - Order has been returned to the pharmacy or is in the process of being returned. 
+
+---
+
+## Query Parameters
+
+| Field | Type | Requirement | Description |
+|------|----------|------|------------|
+| rxNumber | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | The Rx identification number which was returned during Rx creation process.<br/><br/>**Required to provide at least one:**<br/>• `rxNumber`<br/>•`SSPrescriberOrderNumber` (if using SureScripts) |
+| SSPrescriberOrderNumber | string | <Badge color="orange" size="sm" shape="rounded">Conditional</Badge> | Surescripts prescriber order number information.<br/><br/>**Required to provide at least one:**<br/>• `rxNumber`<br/>•`SSPrescriberOrderNumber` (if using SureScripts) . |
+| comments | string | <Badge color="surface" size="sm" shape="rounded">Optional</Badge> | Comments about RX canceling reason. |
+
+
+## Response
+
+| Field | Type | Description |
+|------|------|------------|
+| status | string | “Ok” if RX canceled successfully |
+
+
+<RequestExample>
+
+```
+bash id="cancelreq01"
+GET /api/Rx/CancelRx?rxNumber=Rx_2789&comments="Patient no longer wants medication"
+
+```
+</RequestExample>
+
+<ResponseExample>
+
+```json
+"OK"
+```
+</ResponseExample>

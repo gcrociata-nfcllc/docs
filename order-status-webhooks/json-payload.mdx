@@ -1,0 +1,110 @@
+---
+title: 'JSON Payload'
+---
+
+Webhook notification payloads are delivered using the application/JSON content type. The payload object contains all the relevant information about the event, including the type of event and the data associated with that event.
+
+There are two payloads formats which are associated with specific webhook event types:
+
+---
+
+## Comprehensive Payload
+
+The below payload format contains complete RX information and will be sent for the following event types:
+
+* Submitted_to_wells
+* Transmitted_to_pharmacy
+* Prescription_Canceled
+* Shipped
+* Tracking_Update
+* Rx_Removed
+
+```
+{
+  "events": [
+    {
+      "id": "73b521c2-53a9-47d9-a638-f9f0b614340b",
+      "created_on": "2025-03-04T14:15:16.704Z",
+      "shard_code": "OrganizationName",
+      "type": "Submitted_To_Wells",
+      "data": {
+        "rx_nbr": "Rx_1894",
+        "ss_prescriber_order_nbr": "123456789",
+        "pharmacy_rx_nbr": "8268350",
+        "wpn_order_nbr": "999999",
+        "ndc_nbr": "999999",
+        "drug_descr": "XXXXXXXXXX",
+        "frequency": "999999",
+        "route": "XXXXXXXXXX",
+        "dose": "999999",
+        "dose_unit": "XXXXXXXXXX",
+        "dispense": "999999",
+        "dispense_unit": "XXXXXXXXXX",
+        "directions": "XXXXXXXXXX",
+        "days_supply": "999999",
+        "refills": "999999",
+        "remaining_refills": "999999",
+        "pharmacy_notes": "XXXXXXXXXX",
+        "pat_id": 2221777,
+        "clinic_nbr": 237656,
+        "npi_nbr": "1346467941",
+        "tracking_nbr": null,
+        "carrier": null,
+        "external_order_id": null,
+        "external_prescription_id": null
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Abbreviated Payload
+
+The below abbreviated payload format will be sent for the following event types which are associated with Refilled Rx’s:
+
+* Transmitted_To_Pharmacy_Refill
+* Shipped_Refill
+* Tracking_Update_Refill
+* Rx_Removed_Refill
+
+```
+{
+  "events": [
+    {
+      "id": "73b521c2-53a9-47d9-a638-f9f0b614340b",
+      "created_on": "2025-03-04T14:15:16.704Z",
+      "shard_code": "OrganizationName",
+      "type": "Transmitted_To_Pharmacy_Refill",
+      "data": {
+        "rx_nbr": "Rx_1894",
+        "ss_prescriber_order_nbr": "123456789",
+        "pharmacy_rx_nbr": "8268350",
+        "wpn_order_nbr": "999999",
+        "remaining_refills": "999999",
+        "pharmacy_notes": "XXXXXXXXXX",
+        "pat_id": 2221777,
+        "clinic_nbr": 237656,
+        "tracking_nbr": null,
+        "carrier": null,
+        "external_order_id": null,
+        "external_prescription_id": null
+      }
+    }
+  ]
+}
+```
+
+---
+
+## Carrier Codes
+
+The following are possible values for Carrier Codes:
+
+| Code | Name |
+| ---- | --------|
+| LOC | Local Courier |
+| FEXP | Fedex (Federal Express) |
+| PICK | (In-store) Pickup |
+| UPS | UPS |

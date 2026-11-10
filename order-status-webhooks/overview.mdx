@@ -1,0 +1,36 @@
+---
+title: 'Overview'
+---
+
+## Introduction
+
+The purpose of the WPNScripts ORDER STATUS WEBHOOK is to provide data to the prescribing organization's EMR system for all RXs on an Order when any status change occurs on any RX in that Order. 
+
+
+## Client Responsibilities
+
+Each client will provide the webhook endpoint details to use in both Staging and Production environments, including the URL and the appropriate authentication mechanism based on client’s local environment setup.
+
+    * This ensures that webhook payloads are securely transmitted to the designated destination while adhering to the client’s security and infrastructure requirements.
+
+    * The authentication mechanism may include API keys, bearer tokens, basic authentication, or other security measures specified by the client.
+
+It is the client’s responsibility to ensure that the provided endpoint is accessible and capable of handling incoming webhook requests efficiently.
+
+
+## Triggered Events
+
+The **ORDER STATUS WEBHOOK** will be triggered based on the following RX or RX Order Status change events:
+
+| Type | This event is triggered when... |
+|------|--------------------------------|
+| "Submitted_To_Wells" | A new RX Draft has been created in the WPNScripts system—either through an API Endpoint, or via RX creation in the WPNScripts UI—and is pending transmission to the pharmacy fulfillment system. |
+| "Transmitted_To_Pharmacy" | An RX in WPNScripts has been transmitted to the Wells pharmacy fulfillment system (CarePoint). |
+| "Prescription_Canceled" | An RX has been canceled via the “CancelRx” Endpoint. |
+| "Shipped" | The RX Order Status has changed to “Shipped” in CarePoint. Orders at this stage have completed processing but may still be pending actual shipment.<br/><br/>• If a tracking number is included, shipment status can be obtained via the carrier’s tracking updates.<br/><br/>• If a tracking number is not included, once a tracking number is assigned to the order it will be sent via the “Tracking_Update” webhook. |
+| "Tracking_Update" | The tracking number for RX order has been updated (or added, if it was not present for the “Shipped” webhook). |
+| "Rx_Removed" | The pharmacy has removed the RX from the Order in which it was processing. |
+| "Transmitted_To_Pharmacy_Refill" | Refill process is initiated for RX. |
+| "Shipped_Refill" | RX Order Status has changed to “Shipped” in CarePoint. Orders at this stage have completed processing but may still be pending actual shipment.<br/><br/>• If a tracking number is included, shipment status can be obtained via the carrier’s tracking updates.<br/><br/>• If a tracking number is not included, once a tracking number is assigned to the order it will be sent via the “Tracking_Update_Refill” webhook. |
+| "Tracking_Update_Refill" | The tracking number for a Refilled RX Order has been updated (or added, if it was not present for the “Shipped_Refill” webhook). |
+| "Rx_Removed_Refill" | The pharmacy has removed a Refilled RX from the order in which it was processing. |

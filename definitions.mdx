@@ -1,0 +1,139 @@
+---
+title: 'Definitions'
+---
+
+This section defines common fields, formats, and terms used throughout the WPNScripts API.
+
+---
+
+## Pharmacy Information
+
+| Term | Description |
+|------|------------|
+| WPN | Wells Pharmacy (Ocala, FL) | 
+| WPPL or WPL | WP Pharma Labs (Dallas, TX) |
+| Carepoint or GuardianRx | The pharmacy software system used at each pharmacy location to process prescriptions |
+
+## Identifiers
+
+| Term | Type | Description |
+|------|------|------------|
+| patID | integer | Unique patient identifier assigned by WPNScripts. Use `0` to create a new patient. |
+| externalID | string | Client-provided patient identifier used to map records between systems. |
+| externalOrderID | string | Client-provided identifier used to track **orders** internally. |
+| externalPrescriptionID | string | Client-provided identifier used to track **prescriptions** internally.|
+
+
+## Patient Information
+
+| Term | Type | Description |
+|------|------|------------|
+| firstName | string | Patient’s first (given) name. |
+| lastName | string | Patient’s last (family) name. |
+| middleName | string | Patient’s middle name or initial. |
+| dateOfBirth | string | Patient’s date of birth. Format: `YYYY-MM-DD`. |
+| gender | string | Patient gender (e.g., `M`, `F`, `T`). |
+
+
+## Contact Information
+
+| Term | Type | Description |
+|------|------|------------|
+| homePhone | string | Patient’s home phone number. |
+| mobilePhone | string | Patient’s mobile phone number. At least one phone number is required when creating a patient. |
+| email | string | Patient’s email address used for notifications. |
+| emailRecordOnly | string | Email stored for record only; no notifications are sent. |
+
+## Address Fields
+
+| Term | Type | Description |
+|------|------|------------|
+| address1 | string | Primary street address. |
+| address2 | string | Secondary address line (optional). |
+| address3 | string | Additional address information (optional). |
+| city | string | City name. |
+| state | string | Two-letter state abbreviation (e.g., `TX`, `CA`). |
+| zip | string | ZIP/postal code. |
+
+## Identification & Compliance
+
+| Term | Type | Description |
+|------|------|------------|
+| driverLicenseNbr | string | Patient’s driver’s license number. |
+| driverLicenseState | string | Two-letter state code of issuing authority. |
+| ssNumber | string | Patient’s Social Security Number (optional; used for compliance if required). |
+
+
+## Prescriber Information
+
+| Term | Type | Description |
+|------|------|------------|
+| prescriberNPINumber | string | National Provider Identifier (NPI) of the prescribing provider (10-digit). |
+| supervisingPhysician | string | Supervising physician associated with a mid-level provider (required in certain regulatory scenarios). |
+
+
+## Prescription (Rx) Fields
+
+| Term | Type | Description |
+|------|------|------------|
+| ndc | string | National Drug Code identifying the medication. |
+| drugName | string | Name of the prescribed medication. |
+| control | string | DEA schedule classification (`0`, `2`, `3`, `4`, `5`). |
+| dispense | number | Quantity of medication to dispense. |
+| dispenseUnit | string | Unit of measure (e.g., `ML`, `Tablet`). |
+| isDispenseWritten | boolean | Indicates if the prescription must be dispensed as written (`true` or `false`). |
+| directions | string | Instructions for medication usage. |
+| refills | integer | Number of authorized refills. |
+| daysSupply | integer | Estimated number of days the medication will last. |
+| diagnosis | string | Diagnosis associated with the prescription. |
+| notes | string | Additional notes to the pharmacy. |
+
+
+## Payment & Fulfillment
+
+| Term | Type | Description |
+|------|------|------------|
+| payType | string | Indicates who is responsible for payment<br/>(`Patient`, `Doctor`). |
+| clinicNumber | integer | Identifier for the prescribing clinic. |
+| shippingType | string | Specifies shipment destination.<br/>(`Patient`, `Doctor`).
+| shippingMethod | string | Preferred shipping method. |
+
+
+## Shipping Address (object)
+
+| Term | Type | Description |
+|------|------|------------|
+| shippingName | string | Recipient name. |
+| shippingAddress1 | string | Primary street address. |
+| shippingAddress2 | string | Secondary address line (optional). |
+| shippingAddress3 | string | Additional address information (optional). |
+| shippingCity | string | City. |
+| shippingState | string | Two-letter state code. |
+| shippingZip | string | ZIP/postal code. |
+
+
+## Telehealth & Compliance
+
+| Term | Type | Description |
+|------|------|------------|
+| method | string | Indicates how the patient was last seen<br/>(`inOffice`),(`telehealth`) |
+| lastOfficeVisitDate | string | Date of last office visit.<br/>(Format: `YYYY-MM-DD`.) |
+| telehealthState | string | State where the telehealth consultation occurred. |
+
+
+## Status & Workflow
+
+| Term | Type | Description |
+|------|------|------------|
+| status | string | Prescription status (`FinancialHold`). |
+
+
+## API Response Fields
+
+| Term | Type | Description |
+|------|------|------------|
+| rxNumber | string | Unique identifier returned after prescription creation <br/><br/>(e.g., `"Rx_2693"`). |
+| currentPage | integer | Current page index for paginated responses. |
+| hasNextPage | boolean | Indicates whether additional pages exist. |
+| recordCount | integer | Total number of records available. |
+| data | array | Array of result objects returned by the API. |

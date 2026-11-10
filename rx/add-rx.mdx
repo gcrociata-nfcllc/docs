@@ -1,0 +1,115 @@
+---
+title: "Add Rx"
+tag: "POST"
+---
+
+<Info>
+  All requests require a valid JWT token
+</Info>
+
+<Card title="Endpoint" icon="text-align-start" horizontal href="/">
+  POST `<path to API root>/api/Rx/Add`
+</Card>
+
+The <Badge color="yellow">Add Rx</Badge> endpoint is intended for adding new prescriptions. Rx details are provided via a JSON object included in the Request Body.
+
+---
+
+## Body (application/json)
+
+### Required Fields
+
+| Field | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| prescriberNPINumber | string | <Badge color="red" size="sm">Required</Badge> | Prescriber’s NPI |
+| patID | integer | <Badge color="red" size="sm">Required</Badge> | Unique patient identifier (see [patID](/definitions#patid)) |
+| ndc | string | <Badge color="red" size="sm">Required</Badge> | Prescribed drug's NDC code information |
+| drugName | string | <Badge color="red" size="sm">Required</Badge> | Name of prescribed drug |
+| control | string | <Badge color="red" size="sm">Required</Badge> | DEA schedule classification.<br /><br />**Supported Values:**<br />• `0` — Non-Controlled<br />• `2` — Schedule II<br />• `3` — Schedule III<br />• `4` — Schedule IV<br />• `5` — Schedule V |
+| dispense | number | <Badge color="red" size="sm">Required</Badge> | Quantity to dispense |
+| dispenseUnit | string | <Badge color="red" size="sm">Required</Badge> | Unit of measure (e.g., ML) |
+| isDispenseWritten | boolean | <Badge color="red" size="sm">Required</Badge> | Dispense as written flag.<br /><br />**Supported Values:**<br />• `True` — Dispense as written<br />• `False` — Generic Substitution Permitted |
+| directions | string | <Badge color="red" size="sm">Required</Badge> | Usage instructions |
+| payType | string | <Badge color="red" size="sm">Required</Badge> | Payment responsibility.<br /><br />**Supported Values:**<br />• `Doctor` — Pharmacy will bill the doctor/organization<br /><br />• `Patient` — Pharmacy will contact the patient directly for payment |
+| clinicNumber | integer | <Badge color="red" size="sm">Required</Badge> | Clinic identifier provided by the pharmacy |
+| shippingType | string | <Badge color="red" size="sm">Required</Badge> | Shipment recipient.<br /><br />**Supported Values:**<br />• `Patient` — Ship to patient<br />• `Doctor` — Ship to clinic |
+
+### Optional Fields
+
+| Field | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| supervisingPhysician | string | <Badge color="orange" size="sm">Conditional</Badge> | Information about Supervising physician.<br /><br />**Recommended Values:**<br />• `First and Last Name`<br />• `NPI Number`<br />• `Phone No.`<br />• `Address`<br />• `DEA No. (Required for controls)` |
+| diagnosis | string | <Badge color="surface" size="sm">Optional</Badge> | Diagnosis code |
+| refills | integer | <Badge color="surface" size="sm">Optional</Badge> | Number of refills. |
+| notes | string | <Badge color="surface" size="sm">Optional</Badge> | Notes to pharmacy |
+| daysSupply | integer | <Badge color="surface" size="sm">Optional</Badge> | Days supply |
+| method | string | <Badge color="orange" size="sm">Conditional</Badge> | Method patient was last seen by provider.<br /><br />Required if shipping state differs from prescriber address on file.<br /><br />**Supported Values:**<br />• `inOffice`<br />• `telehealth` |
+| lastOfficeVisitDate | string (YYYY-MM-DD) | <Badge color="orange" size="sm">Conditional</Badge> | Date patient was last seen by provider.<br /><br />Required if shipping state differs from prescriber address on file |
+| externalOrderID | string | <Badge color="surface" size="sm">Optional</Badge> | Client order ID |
+| externalPrescriptionID | string | <Badge color="surface" size="sm">Optional</Badge> | Client prescription ID |
+| shippingMethod | string | <Badge color="surface" size="sm">Optional</Badge> | Shipping preference |
+
+## shippingAddress (object)
+
+| Field | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| shippingName | string | <Badge color="red" size="sm">Required</Badge> | Receiver's name |
+| shippingAddress1 | string | <Badge color="red" size="sm">Required</Badge> | Receiver's Address line 1 |
+| shippingAddress2 | string | <Badge color="surface" size="sm">Optional</Badge> | Receiver's Address line 2<br /><br />No value should be provided by default. Include only if applicable |
+| shippingAddress3 | string | <Badge color="surface" size="sm">Optional</Badge> | Receiver's Address line 3<br /><br />No value should be provided by default. Include only if applicable |
+| shippingCity | string | <Badge color="red" size="sm">Required</Badge> | City |
+| shippingState | string | <Badge color="red" size="sm">Required</Badge> | Two-letter state code |
+| shippingZip | string | <Badge color="red" size="sm">Required</Badge> | ZIP code |
+
+---
+
+## Response
+
+| Field | Location | Type | Description |
+| --- | --- | --- | --- |
+| rxNumber | Body | String | Newly created Rx Number information |
+
+<RequestExample>
+
+```json
+{
+  "prescriberNPINumber": "1112223333",
+  "patID": 2249881,
+  "ndc": "22600040412",
+  "drugName": "SEMAGLUTIDE + NIACINAMIDE",
+  "control": "0",
+  "dispense": 4.5,
+  "dispenseUnit": "ML",
+  "isDispenseWritten": true,
+  "directions": "Inject as directed",
+  "payType": "Patient",
+  "clinicNumber": 1234,
+  "shippingType": "Patient",
+  "shippingAddress": {
+    "shippingName": "John Smith",
+    "shippingAddress1": "123 Main St",
+    "shippingCity": "Houston",
+    "shippingState": "TX",
+    "shippingZip": "77001"
+  }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json
+"Rx_2693"
+```
+
+</ResponseExample>
+
+## Formatting Guidelines
+
+## Notes
+
+- Ensure all required fields are provided
+- Conditional fields must be included when applicable
+- Shipping address is always required
+- Use valid NDC and NPI values

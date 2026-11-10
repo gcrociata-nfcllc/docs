@@ -1,0 +1,32 @@
+---
+title: 'API Responses'
+---
+
+<Badge color="green" size="lg" shape="rounded">**Success**</Badge>
+
+Upon successful execution (HTTP Status Code: 200), each response will return its specific output type, which will be described for each endpoint separately in later sections.
+
+---
+
+<Badge color="red" size="lg" shape="rounded">**Error**</Badge>
+
+In the case of unsuccessful execution (HTTP Status Code: 404), an error type JSON object will be returned with the following structure:
+
+| Field | Type | Description |
+|------|------|------------|
+| code | integer | Error code type |
+| description | string | Global description about error type |
+| details | string array | List of all problems described in detail. |
+
+
+```json
+{
+  "code": 1000,
+  "description": "Not found.",
+  "details": []
+}
+```
+
+It is recommended to verify the execution status codes and, based on success or failure, appropriately handle the output by either parsing it as an Error object, or extracting the desired information from the endpoint's specific JSON response.
+
+See [Errors](/errors) for a complete list of possible errors and how to resolve them.

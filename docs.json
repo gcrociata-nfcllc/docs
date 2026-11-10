@@ -1,0 +1,82 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "WPNScripts API",
+  "theme": "maple",
+  "appearance": {
+    "default": "dark",
+    "strict": true
+  },
+  "colors": {
+    "primary": "#0D9373",
+    "light": "#00ced1",
+    "dark": "#000080"
+  },
+  "icons": {
+  "library": "fontawesome"
+},
+  "navigation": {
+    "groups": [
+      {
+        "group": "Getting Started",
+        "pages": [
+          "home-page",
+          "integration-steps"
+        ]
+      },
+      {
+        "group": "Core Concepts",
+        "pages": [
+          "definitions"
+        ]
+      },
+      {
+        "group": "Authentication",
+        "pages": [
+          "authentication/introduction",
+          "authentication/get-token",
+          "authentication/get-access-key"
+        ]
+      },
+      {
+        "group": "Patients",
+        "pages": [
+          "patients/add-edit-patient",
+          "patients/get-patient"
+        ]
+      },
+      {
+        "group": "Prescriptions (Rx)",
+        "pages": [
+          "rx/add-rx",
+          "rx/get-rx-status",
+          "rx/cancel-rx",
+          "rx/refill-rx",
+          "rx/release-rx",
+          "rx/get-rx-tracking"
+        ]
+      },
+      {
+        "group": "Order Status Webhooks",
+        "pages": [
+          "order-status-webhooks/overview",
+          "order-status-webhooks/json-payload"
+        ]
+      },
+      {
+        "group": "Errors",
+        "pages": [
+          "errors/overview",
+          "errors/error-descriptions"
+        ]
+      },
+      {
+        "group": "Example Requests & Payloads",
+        "pages": [
+          "background",
+          "add-edit-patient-requests",
+          "add-rx-examples"
+        ]
+      }
+    ]
+  }
+}
